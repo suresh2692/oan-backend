@@ -3,7 +3,7 @@ from pydantic_ai.settings import ModelSettings
 from typing import List
 from helpers.utils import get_prompt
 from agents.models import LLM_MODEL
-from agents.tools.search import search_documents
+from agents.tools.rag_router import search_documents
 
 
 suggestions_agent = Agent(

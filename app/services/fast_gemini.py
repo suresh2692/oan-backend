@@ -364,16 +364,12 @@ class FastGeminiService:
             while tool_round < MAX_TOOL_ROUNDS:
                 tool_round += 1
                 logger.info(f"🔄 LLM call round {tool_round}...")
-                
-                # Stream response from Gemini (Async)
+
+                # Stream response from Gemini (Async) with retry for transient errors
                 has_function_call = False
-                
-                # Use Async Client via .aio to avoid blocking event loop
-                async for chunk in await self.client.aio.models.generate_content_stream(
-                    model=self.model,
-                    contents=contents,
-                    config=self.config,
-                ):
+
+                stream = await self._stream_with_retry(contents)
+                async for chunk in stream:
                     # Check for function calls
                     if chunk.function_calls:
                         has_function_call = True
@@ -478,6 +474,39 @@ class FastGeminiService:
                 error_msg = "ስህተት አጋጥሞኛል። እባክዎ እንደገና ይሞክሩ።"
             yield error_msg
     
+    async def _stream_with_retry(self, contents: list, max_retries: int = 3):
+        """Stream from Gemini with retry + fallback model for transient errors (429/503)."""
+        fallback_model = os.getenv("LLM_FALLBACK_MODEL_NAME")
+        models_to_try = [self.model]
+        if fallback_model and fallback_model != self.model:
+            models_to_try.append(fallback_model)
+
+        for model in models_to_try:
+            for attempt in range(1, max_retries + 1):
+                try:
+                    stream = await self.client.aio.models.generate_content_stream(
+                        model=model,
+                        contents=contents,
+                        config=self.config,
+                    )
+                    if model != self.model:
+                        logger.info(f"Using fallback model: {model}")
+                    return stream
+                except Exception as e:
+                    error_str = str(e)
+                    is_transient = any(code in error_str for code in ["429", "503", "UNAVAILABLE", "RESOURCE_EXHAUSTED"])
+                    if is_transient and attempt < max_retries:
+                        wait = 2 ** attempt
+                        logger.warning(f"Transient error (attempt {attempt}/{max_retries}, model={model}): {error_str[:100]}. Retrying in {wait}s...")
+                        await asyncio.sleep(wait)
+                    elif is_transient and model != models_to_try[-1]:
+                        logger.warning(f"Model {model} failed after {attempt} attempts, trying fallback...")
+                        break  # Break retry loop, try next model
+                    else:
+                        raise
+        # Should not reach here, but just in case
+        raise Exception(f"All models and retries exhausted")
+
     async def _execute_tool(self, tool_name: str, args: Dict) -> str:
         """Execute a tool and return its result."""
         from agents.tools.crop import get_crop_price_quick, list_crops_in_marketplace

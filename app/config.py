@@ -1,11 +1,13 @@
 import os
 from pathlib import Path
 from typing import List, Optional
-from pydantic_settings import BaseSettings
+
 from dotenv import load_dotenv
+from pydantic_settings import BaseSettings
 
 # Load environment variables from .env file
 load_dotenv()
+
 
 class Settings(BaseSettings):
     # Core Application Settings
@@ -18,7 +20,7 @@ class Settings(BaseSettings):
 
     # Server Configuration
     host: str = "0.0.0.0"
-    port: int = 8000
+    port: int = 8001
     api_prefix: str = "/api"
     rate_limit_requests_per_minute: int = 1000
 
@@ -48,10 +50,12 @@ class Settings(BaseSettings):
 
     # Cache Configuration
     default_cache_ttl: int = 60 * 60 * 24  # 24 hours
-    suggestions_cache_ttl: int = 60 * 30    # 30 minutes
+    suggestions_cache_ttl: int = 60 * 30  # 30 minutes
 
     # PostgreSQL Database Configuration
-    database_url: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/load_agri")
+    database_url: str = os.getenv(
+        "DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/load_agri"
+    )
     db_pool_size: int = int(os.getenv("DB_POOL_SIZE", "20"))
     db_max_overflow: int = int(os.getenv("DB_MAX_OVERFLOW", "10"))
 
@@ -65,7 +69,9 @@ class Settings(BaseSettings):
     log_format: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
     # External Service URLs
-    telemetry_api_url: str = "https://vistaar.kenpath.ai/observability-service/action/data/v3/telemetry"
+    telemetry_api_url: str = (
+        "https://vistaar.kenpath.ai/observability-service/action/data/v3/telemetry"
+    )
     bhashini_api_url: str = ""
     ollama_endpoint_url: Optional[str] = None
     marqo_endpoint_url: Optional[str] = None
@@ -103,18 +109,25 @@ class Settings(BaseSettings):
     # Cosdata Configuration
     cosdata_endpoint_url: Optional[str] = os.getenv("COSDATA_ENDPOINT_URL")
     cosdata_api_key: Optional[str] = os.getenv("COSDATA_API_KEY")
-    cosdata_collection_name: str = os.getenv("COSDATA_COLLECTION_NAME", "oan-collection")
+    cosdata_collection_name: str = os.getenv(
+        "COSDATA_COLLECTION_NAME", "oan-collection"
+    )
 
     # Embedding Configuration (for Cosdata - uses sentence-transformers locally)
-    embedding_model_name: str = os.getenv("EMBEDDING_MODEL_NAME", "intfloat/multilingual-e5-large")
+    embedding_model_name: str = os.getenv(
+        "EMBEDDING_MODEL_NAME", "intfloat/multilingual-e5-large"
+    )
 
     # OpenTelemetry / SigNoz Configuration
     otel_service_name: str = os.getenv("OTEL_SERVICE_NAME", "oan-ai-api")
-    otel_exporter_otlp_endpoint: str = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318")
+    otel_exporter_otlp_endpoint: str = os.getenv(
+        "OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318"
+    )
     otel_enabled: bool = os.getenv("OTEL_ENABLED", "true").lower() == "true"
 
     class Config:
         env_file = ".env"
-        extra = 'ignore'  # Ignore extra fields from .env
+        extra = "ignore"  # Ignore extra fields from .env
+
 
 settings = Settings()

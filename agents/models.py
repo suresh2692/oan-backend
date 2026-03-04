@@ -40,5 +40,13 @@ elif LLM_PROVIDER == 'openai':
             api_key=os.getenv('OPENAI_API_KEY'),
         ),
     )
+elif LLM_PROVIDER == 'openrouter':
+    LLM_MODEL = OpenAIModel(
+        LLM_MODEL_NAME,
+        provider=OpenAIProvider(
+            base_url='https://openrouter.ai/api/v1',
+            api_key=os.getenv('OPENROUTER_API_KEY'),
+        ),
+    )
 else:
-    raise ValueError(f"Invalid LLM_PROVIDER: {LLM_PROVIDER}. Must be one of: 'gemini', 'openai', 'vllm'")
+    raise ValueError(f"Invalid LLM_PROVIDER: {LLM_PROVIDER}. Must be one of: 'gemini', 'openai', 'openrouter', 'vllm'")

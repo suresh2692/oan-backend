@@ -16,6 +16,7 @@ from agents.deps import FarmerContext
 from helpers.utils import get_logger, get_prompt, get_today_date_str
 from pydantic_ai import UsageLimits
 from app.services.fast_gemini import FastGeminiService, FastModerationService
+from app.services.fast_openai import FastOpenAIService
 load_dotenv()
 
 logger = get_logger(__name__)
@@ -97,11 +98,15 @@ async def stream_chat_messages(
     stage_time = (time.perf_counter() - stage_start) * 1000
     logger.info(f"⏱️ [TIMING] History trimming: {stage_time:.2f}ms")
 
-    # ⏱️ STAGE 4: Main agent execution (Phase 3: FastGeminiService)
+    # ⏱️ STAGE 4: Main agent execution
     stage_start = time.perf_counter()
-    
-    # Initialize Fast Service with correct language (sets system prompt)
-    fast_chat = FastGeminiService(lang=target_lang)
+
+    # Initialize Fast Service based on provider
+    llm_provider = os.getenv("LLM_PROVIDER", "gemini").lower()
+    if llm_provider == "gemini":
+        fast_chat = FastGeminiService(lang=target_lang)
+    else:
+        fast_chat = FastOpenAIService(lang=target_lang)
     metrics = {}
     
     # Construct Full Prompt (History + Query)
@@ -149,9 +154,16 @@ async def stream_chat_messages(
     logger.info(f"⏱️ [TIMING] ═══ TOTAL PIPELINE: {total_time:.2f}ms ═══")
     
     # Return complete response as JSON
+    error_indicators = [
+        "I encountered an error",
+        "ስህተት አጋጥሞኛል",
+        "couldn't summarize it",
+        "ማጠቃለል አልቻልኩም"
+    ]
+    is_error = any(indicator in full_text for indicator in error_indicators)
     response_data = {
         "response": full_text,
-        "status": "success"
+        "status": "error" if is_error else "success"
     }
     
     if sources:

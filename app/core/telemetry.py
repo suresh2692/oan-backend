@@ -3,6 +3,7 @@ OpenTelemetry instrumentation module for SigNoz integration.
 
 Provides tracing, metrics, and logging with OTLP export to SigNoz.
 """
+import logging
 from typing import Optional
 from functools import lru_cache
 
@@ -14,6 +15,12 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import Resource, SERVICE_NAME
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
+
+# Log export
+from opentelemetry._logs import set_logger_provider
+from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
+from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
+from opentelemetry.exporter.otlp.proto.http._log_exporter import OTLPLogExporter
 
 # Optional instrumentation packages
 try:
@@ -35,6 +42,7 @@ logger = get_logger(__name__)
 
 _tracer_provider: Optional[TracerProvider] = None
 _meter_provider: Optional[MeterProvider] = None
+_logger_provider: Optional[LoggerProvider] = None
 _initialized: bool = False
 
 
@@ -81,6 +89,17 @@ def init_telemetry(app) -> None:
         _meter_provider = MeterProvider(resource=resource, metric_readers=[metric_reader])
         metrics.set_meter_provider(_meter_provider)
 
+        # Initialize LoggerProvider for exporting logs to SigNoz
+        _logger_provider = LoggerProvider(resource=resource)
+        logs_endpoint = f"{settings.otel_exporter_otlp_endpoint}/v1/logs"
+        log_exporter = OTLPLogExporter(endpoint=logs_endpoint)
+        _logger_provider.add_log_record_processor(BatchLogRecordProcessor(log_exporter))
+        set_logger_provider(_logger_provider)
+
+        # Attach OTel handler to Python root logger so all logging calls are exported
+        otel_handler = LoggingHandler(level=logging.INFO, logger_provider=_logger_provider)
+        logging.getLogger().addHandler(otel_handler)
+
         # Instrument FastAPI for automatic HTTP tracing (if available)
         if HAS_FASTAPI_INSTRUMENTOR:
             FastAPIInstrumentor.instrument_app(app)
@@ -105,7 +124,7 @@ def init_telemetry(app) -> None:
 
 def shutdown_telemetry() -> None:
     """Shutdown telemetry providers gracefully."""
-    global _tracer_provider, _meter_provider
+    global _tracer_provider, _meter_provider, _logger_provider
 
     if _tracer_provider:
         try:
@@ -120,6 +139,13 @@ def shutdown_telemetry() -> None:
             logger.info("MeterProvider shutdown complete")
         except Exception as e:
             logger.error(f"Error shutting down MeterProvider: {e}")
+
+    if _logger_provider:
+        try:
+            _logger_provider.shutdown()
+            logger.info("LoggerProvider shutdown complete")
+        except Exception as e:
+            logger.error(f"Error shutting down LoggerProvider: {e}")
 
 
 @lru_cache(maxsize=32)

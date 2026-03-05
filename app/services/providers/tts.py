@@ -2,13 +2,13 @@
 Production-Ready TTS Provider
 """
 
+import os
 import time
 from typing import AsyncGenerator, Optional
 from app.config import settings
 from helpers.utils import get_logger
 import asyncio
 import re
-import azure.cognitiveservices.speech as speechsdk
 
 logger = get_logger(__name__)
 
@@ -114,6 +114,9 @@ class AzureTTSProvider(TTSProvider):
     """
 
     def __init__(self):
+        import azure.cognitiveservices.speech as speechsdk
+        self._speechsdk = speechsdk
+
         self.speech_key = settings.azure_foundary_api_key
         self.service_region = settings.azure_foundary_region
 
@@ -152,7 +155,7 @@ class AzureTTSProvider(TTSProvider):
             logger.error(f"❌ Failed to initialize Azure TTS: {e}")
             raise
 
-    def _get_or_create_synthesizer(self, lang: str) -> speechsdk.SpeechSynthesizer:
+    def _get_or_create_synthesizer(self, lang: str):
         """
         Get or create synthesizer for language
         Reuses synthesizers instead of creating new ones
@@ -163,6 +166,7 @@ class AzureTTSProvider(TTSProvider):
         Returns:
             SpeechSynthesizer instance
         """
+        speechsdk = self._speechsdk
         if lang not in self._synthesizers:
             # Select voice based on language
             voice_name = self.voices.get(lang, self.voices["en"])
@@ -283,6 +287,7 @@ class AzureTTSProvider(TTSProvider):
         Returns:
             Optional[bytes]: Audio data or None on error
         """
+        speechsdk = self._speechsdk
         if not text or not text.strip():
             return None
 
@@ -366,6 +371,70 @@ class AzureTTSProvider(TTSProvider):
         self._synthesizer_locks.clear()
 
 
+class CoquiXTTSProvider(TTSProvider):
+    """TTS using Coqui XTTS-v2 server (xtts-api-server /tts_stream endpoint)."""
+
+    def __init__(self, base_url: str = None):
+        self.base_url = (base_url or os.getenv("XTTS_URL", "http://localhost:8020")).rstrip('/')
+        self.speaker_wav = os.getenv("XTTS_SPEAKER_WAV", "")
+        logger.info(f"✅ Coqui XTTS Provider initialized: {self.base_url}")
+
+    async def stream_audio(
+        self,
+        text_stream: AsyncGenerator[str, None],
+        lang: str = "en"
+    ) -> AsyncGenerator[bytes, None]:
+        import httpx
+        lang_code = "en" if lang.startswith("en") else "am"
+        buffer = ""
+        delimiters = {".", "!", "?", ";", "\n", ","}
+
+        async def synthesize_chunk(text: str):
+            text = convert_numbers_to_words(text.strip(), lang)
+            if not text:
+                return
+            payload = {"text": text, "language": lang_code, "speaker_wav": self.speaker_wav}
+            try:
+                async with httpx.AsyncClient(timeout=60.0) as client:
+                    async with client.stream("POST", f"{self.base_url}/tts_stream", json=payload) as resp:
+                        resp.raise_for_status()
+                        header_stripped = False
+                        wav_buf = b''
+                        async for chunk in resp.aiter_bytes(8192):
+                            if not chunk:
+                                continue
+                            wav_buf += chunk
+                            if not header_stripped and len(wav_buf) >= 44:
+                                wav_buf = wav_buf[44:]
+                                header_stripped = True
+                            if header_stripped and wav_buf:
+                                yield wav_buf
+                                wav_buf = b''
+            except Exception as e:
+                logger.error(f"XTTS streaming error: {e}")
+
+        async for text_chunk in text_stream:
+            if not text_chunk:
+                continue
+            buffer += text_chunk
+            if any(c in delimiters for c in text_chunk):
+                split_idx = max((i for i, c in enumerate(buffer) if c in delimiters), default=-1)
+                if split_idx != -1:
+                    to_synth = buffer[:split_idx + 1].strip()
+                    buffer = buffer[split_idx + 1:].strip()
+                    if to_synth:
+                        async for audio_bytes in synthesize_chunk(to_synth):
+                            yield audio_bytes
+            elif len(buffer) > 80:
+                async for audio_bytes in synthesize_chunk(buffer):
+                    yield audio_bytes
+                buffer = ""
+
+        if buffer.strip():
+            async for audio_bytes in synthesize_chunk(buffer):
+                yield audio_bytes
+
+
 # Singleton
 _tts_provider: Optional[TTSProvider] = None
 
@@ -374,8 +443,12 @@ def get_tts_provider() -> TTSProvider:
     """Get TTS provider based on configuration"""
     global _tts_provider
     if _tts_provider is None:
-        _tts_provider = AzureTTSProvider()
-        logger.info("TTS Provider initialized")
+        tts_provider_name = os.getenv("TTS_PROVIDER", "azure").lower()
+        if tts_provider_name == "coqui_xtts":
+            _tts_provider = CoquiXTTSProvider()
+        else:
+            _tts_provider = AzureTTSProvider()
+        logger.info(f"TTS Provider initialized: {tts_provider_name}")
 
     return _tts_provider
 

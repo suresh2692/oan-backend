@@ -24,7 +24,6 @@ asyncpg
 openai
 pydantic>=2.0.0
 pydantic-ai
-google-genai
 tiktoken
 tenacity
 transformers
@@ -79,10 +78,3 @@ sympy
 scipy
 click
 charset-normalizer
-
-# OpenTelemetry / Observability
-opentelemetry-api
-opentelemetry-sdk
-opentelemetry-exporter-otlp-proto-http
-opentelemetry-instrumentation-fastapi
-opentelemetry-instrumentation-logging

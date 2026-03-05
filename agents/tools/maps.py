@@ -15,13 +15,11 @@ load_dotenv()
 # Cache TTL for geocoding (24 hours - locations don't change)
 GEOCODE_CACHE_TTL = 60 * 60 * 24
 
-# Initialize Nominatim geocoder
-_nominatim_domain = os.getenv("NOMINATIM_DOMAIN", "nominatim.openstreetmap.org")
-_nominatim_scheme = "http" if _nominatim_domain.replace(".", "").isdigit() else "https"
+# Initialize Nominatim geocoder (self-hosted)
 geocoder = Nominatim(
     user_agent="ethiopia_agri_chatbot",
-    domain=_nominatim_domain,
-    scheme=_nominatim_scheme,
+    domain=os.getenv("NOMINATIM_DOMAIN", ""),  
+    scheme="http",
     timeout=10
 )
 

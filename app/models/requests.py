@@ -10,7 +10,6 @@ class ChatRequest(BaseModel):
 
 class TranscribeRequest(BaseModel):
     audio_content: str = Field(..., description="Base64 encoded audio content")
-    lang_code: str = Field("en", description="Language code for transcription (e.g., 'en', 'am')")
     session_id: Optional[str] = Field(None, description="Session ID")
 
 class SuggestionsRequest(BaseModel):

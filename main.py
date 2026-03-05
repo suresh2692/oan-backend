@@ -13,7 +13,6 @@ from app.config import settings
 from app.routers import chat_router, suggestions_router, transcribe_router, tts_router, conversation_router
 from app.routers.health import router as health_router
 from app.core.cache import cache
-from app.core.telemetry import init_telemetry, shutdown_telemetry
 from app.database import close_db
 from helpers.utils import get_logger
 
@@ -28,40 +27,32 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting up MahaVistaar AI API...")
 
-    # Initialize OpenTelemetry
-    init_telemetry(app)
-    logger.info("OpenTelemetry initialization complete")
-
     # Test cache connection
     try:
         await cache.set("health_check", "ok", ttl=60)
         test_value = await cache.get("health_check")
         if test_value == "ok":
-            logger.info("Cache connection successful")
+            logger.info("✅ Cache connection successful")
         else:
-            logger.warning("Cache connection issue - values not persisting correctly")
+            logger.warning("⚠️ Cache connection issue - values not persisting correctly")
     except Exception as e:
-        logger.error(f"Cache connection failed: {str(e)}")
+        logger.error(f"❌ Cache connection failed: {str(e)}")
 
     # Initialize database connection pool
-    logger.info("Database engine initialized")
+    logger.info("✅ Database engine initialized")
 
-    logger.info("Application startup complete")
+    logger.info("✅ Application startup complete")
 
     yield
 
     # Shutdown
     logger.info("Shutting down MahaVistaar AI API...")
 
-    # Shutdown telemetry providers
-    shutdown_telemetry()
-    logger.info("Telemetry shutdown complete")
-
     # Close database connections
     await close_db()
-    logger.info("Database connections closed")
+    logger.info("✅ Database connections closed")
 
-    logger.info("Application shutdown complete")
+    logger.info("✅ Application shutdown complete")
 
 def create_app() -> FastAPI:
     """

@@ -6,11 +6,13 @@ from agents.models import LLM_MODEL
 from agents.tools.search import search_documents
 
 
+# Use str output to avoid tool_choice: "required" which some OpenRouter
+# providers don't support.  The task layer parses the list from text.
 suggestions_agent = Agent(
     name="Suggestions Agent",
     model=LLM_MODEL,
     system_prompt=get_prompt('suggestions_system'),
-    output_type=List[str],  # List of 3-5 suggested questions for the farmer
+    output_type=str,
     retries=1,
     end_strategy='exhaustive',
     tools=[
@@ -20,6 +22,6 @@ suggestions_agent = Agent(
         )
     ],
     model_settings=ModelSettings(
-        parallel_tool_calls=False,  # Prevent multiple tool calls
+        parallel_tool_calls=False,
     )
 )

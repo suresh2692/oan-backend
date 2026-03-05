@@ -5,7 +5,14 @@ import os
 import re
 import sys
 import time
+import typing
 from typing import List, Optional, Literal
+
+# Monkey-patch typing.Self for Python <3.11 (required by cosdata-client)
+if not hasattr(typing, 'Self'):
+    from typing_extensions import Self
+    typing.Self = Self
+
 from pydantic import BaseModel, Field
 from helpers.utils import get_logger
 from functools import lru_cache

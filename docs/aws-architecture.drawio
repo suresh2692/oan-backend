@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- TITLE                                                          -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="title" value="OAN Backend — AWS Architecture (ap-south-1 / Mumbai)&#xa;Account: 379220350808" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="400" y="20" width="700" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- INTERNET ZONE                                                  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="internet-zone" value="Internet / Public" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_internet_alt2;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFFFFF;strokeColor=#147EBA;dashed=1;fontSize=13;fontStyle=1;fontColor=#147EBA;" vertex="1" parent="1">
+      <mxGeometry x="40" y="100" width="320" height="420" as="geometry" />
+    </mxCell>
+
+    <!-- Client User -->
+    <mxCell id="user" value="Client&#xa;(Mobile / Web App)" style="shape=mxgraph.aws4.user;fillColor=#232F3E;strokeColor=none;fontColor=#ffffff;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="130" y="140" width="60" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="user-label" value="Client&#xa;(Mobile / Web App)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="100" y="200" width="120" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- Bhashini -->
+    <mxCell id="bhashini" value="Bhashini (MeitY)&#xa;Multilingual API" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.translate;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="60" y="270" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="bhashini-label" value="Bhashini (MeitY)&#xa;Multilingual API" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="40" y="318" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- OpenWeatherMap -->
+    <mxCell id="openweather" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.weather;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="160" y="270" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="openweather-label" value="OpenWeatherMap" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="140" y="318" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- Mapbox -->
+    <mxCell id="mapbox" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.location_service;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="260" y="270" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="mapbox-label" value="Mapbox&#xa;(Geocoding)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="240" y="318" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- OpenAI / OpenRouter -->
+    <mxCell id="llm" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker_model;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="60" y="380" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="llm-label" value="OpenAI / OpenRouter&#xa;(LLM fallback)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="40" y="428" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- Azure Cognitive Speech -->
+    <mxCell id="azure" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transcribe;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="160" y="380" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="azure-label" value="Azure Cognitive&#xa;Speech (STT/TTS)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="140" y="428" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- NMIS -->
+    <mxCell id="nmis" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="260" y="380" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="nmis-label" value="NMIS Market API&#xa;(Crop prices)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="240" y="428" width="90" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- AWS REGION                                                     -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="region" value="AWS Region: ap-south-1 (Mumbai) · Account 379220350808" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#F8F8F8;strokeColor=#232F3E;dashed=0;fontSize=12;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="400" y="80" width="1200" height="1000" as="geometry" />
+    </mxCell>
+
+    <!-- Elastic IP (unassociated) -->
+    <mxCell id="eip" value="Elastic IP: 13.234.99.127&#xa;eipalloc-0cbfb9a44f05966ea&#xa;(unassociated — tagged for NAT GW)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_ip_address;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=9;fillColor=#8C4FFF;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1480" y="200" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="eip-label" value="Elastic IP: 13.234.99.127&#xa;eipalloc-0cbfb9a44f05966ea&#xa;(unassociated — tagged for NAT GW)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="1440" y="248" width="140" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Internet Gateway -->
+    <mxCell id="igw" value="Internet Gateway&#xa;igw-04632558f7b4bffa4" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.internet_gateway;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#8C4FFF;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="490" y="200" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="igw-label" value="Internet Gateway&#xa;igw-04632558f7b4bffa4" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="460" y="248" width="110" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- OAN VPC                                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="oan-vpc" value="oan-vpc · vpc-098db793507cb54ea · 10.0.0.0/16" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E6F3FB;strokeColor=#147EBA;dashed=0;fontSize=12;fontStyle=1;fontColor=#147EBA;" vertex="1" parent="1">
+      <mxGeometry x="430" y="300" width="980" height="720" as="geometry" />
+    </mxCell>
+
+    <!-- Route Table -->
+    <mxCell id="rt" value="Route Table&#xa;rtb-0706ca652966f3550&#xa;0.0.0.0/0 → IGW" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_table;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=9;fillColor=#8C4FFF;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="460" y="360" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="rt-label" value="Route Table&#xa;rtb-0706ca652966f3550&#xa;0.0.0.0/0 → IGW" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="440" y="408" width="90" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- PUBLIC SUBNET                                                  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="public-subnet" value="Public Subnet · subnet-044c70eb69042c9b6 · 10.0.1.0/24 · ap-south-1a · auto-assign public IP" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_public_subnet;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#D5E8D4;strokeColor=#67AB9F;dashed=0;fontSize=11;fontStyle=1;fontColor=#2D7600;" vertex="1" parent="1">
+      <mxGeometry x="570" y="310" width="820" height="690" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SECURITY GROUP                                                 -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="sg" value="Security Group: oan-sg · sg-048932953c725ab06&#xa;Inbound: TCP 22 (SSH) + TCP 8080 from 0.0.0.0/0 | Outbound: All" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFE6CC;strokeColor=#FF8000;dashed=1;fontSize=10;fontStyle=1;fontColor=#FF8000;" vertex="1" parent="1">
+      <mxGeometry x="600" y="380" width="770" height="590" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- EC2 INSTANCE                                                   -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="ec2-box" value="EC2: oan-ati · i-0d903d4ccad4a2e85&#xa;g4dn.xlarge · NVIDIA T4 GPU · Private IP: 10.0.1.116 · Status: STOPPED" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_ec2_instance_contents;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFE6CC;strokeColor=#FF8000;dashed=0;fontSize=10;fontStyle=1;fontColor=#CC5500;" vertex="1" parent="1">
+      <mxGeometry x="630" y="460" width="720" height="480" as="geometry" />
+    </mxCell>
+
+    <!-- EC2 icon -->
+    <mxCell id="ec2-icon" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#ED7100;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="680" y="470" width="48" height="48" as="geometry" />
+    </mxCell>
+
+    <!-- GPU label -->
+    <mxCell id="gpu-label" value="NVIDIA T4 GPU — Ollama runs GPU-accelerated inference" style="text;html=1;strokeColor=none;fillColor=#FFF3E0;align=center;fontSize=9;fontStyle=2;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="750" y="480" width="340" height="24" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- DOCKER NETWORK                                                 -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="docker-net" value="Docker Bridge Network: oan_network" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_elastic_container_service_contents;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#D5E8F5;strokeColor=#0E6EB8;dashed=1;fontSize=10;fontStyle=1;fontColor=#0E6EB8;" vertex="1" parent="1">
+      <mxGeometry x="650" y="530" width="680" height="390" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI -->
+    <mxCell id="fastapi" value="oan_app&#xa;FastAPI + Uvicorn&#xa;(8 workers)&#xa;8080 → 8000" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="750" y="570" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="fastapi-label" value="oan_app&#xa;FastAPI + Uvicorn&#xa;(8 workers)&#xa;8080 → 8000" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="720" y="618" width="110" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- PostgreSQL -->
+    <mxCell id="postgres" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#2E73B8;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="900" y="570" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="postgres-label" value="oan_postgres&#xa;PostgreSQL 15&#xa;Port: 5432" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="870" y="618" width="110" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- Redis -->
+    <mxCell id="redis" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elasticache;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#C7131F;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1050" y="570" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="redis-label" value="oan_redis&#xa;Redis 7&#xa;Port: 6379" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="1020" y="618" width="110" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- Cosdata Vector DB -->
+    <mxCell id="cosdata" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.opensearch_service;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#8C4FFF;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1200" y="570" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="cosdata-label" value="oan_cosdata&#xa;Vector DB&#xa;8443 (HTTP)&#xa;50051 (gRPC)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="1170" y="618" width="110" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- Ollama -->
+    <mxCell id="ollama" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#01A88D;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="750" y="720" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="ollama-label" value="Ollama&#xa;LLM Inference&#xa;(GPU-accelerated)&#xa;Port: 11434" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="720" y="768" width="110" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- faster-whisper -->
+    <mxCell id="whisper" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transcribe;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#01A88D;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="950" y="720" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="whisper-label" value="faster-whisper&#xa;STT Service&#xa;8001 → 8000" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="920" y="768" width="110" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- XTTS -->
+    <mxCell id="xtts" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.polly;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#01A88D;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1150" y="720" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="xtts-label" value="XTTS&#xa;TTS Service&#xa;Port: 8020" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="1120" y="768" width="110" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- EKS CLUSTERS                                                   -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="eks2-vpc" value="oan-2-cluster VPC · vpc-01f807c7b5a94e967 · 192.168.0.0/16" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E6F3FB;strokeColor=#147EBA;dashed=1;fontSize=10;fontStyle=1;fontColor=#147EBA;" vertex="1" parent="1">
+      <mxGeometry x="440" y="1080" width="350" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="eks2-icon" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;labelBackgroundColor=#E6F3FB;sketch=0;fontStyle=0;fontSize=10;fillColor=#ED7100;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="490" y="1110" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="eks2-label" value="EKS: oan-2-cluster&#xa;NAT EIP: 13.233.13.107" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="560" y="1120" width="200" height="40" as="geometry" />
+    </mxCell>
+
+    <mxCell id="eks3-vpc" value="oan-3-cluster VPC · vpc-05cac9bb0daf71fc4 · 192.168.0.0/16" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E6F3FB;strokeColor=#147EBA;dashed=1;fontSize=10;fontStyle=1;fontColor=#147EBA;" vertex="1" parent="1">
+      <mxGeometry x="830" y="1080" width="350" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="eks3-icon" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;labelBackgroundColor=#E6F3FB;sketch=0;fontStyle=0;fontSize=10;fillColor=#ED7100;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="880" y="1110" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="eks3-label" value="EKS: oan-3-cluster&#xa;NAT EIP: 13.235.121.225" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="950" y="1120" width="200" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- CONNECTION ARROWS                                              -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- User → IGW (HTTPS) -->
+    <mxCell id="conn-user-igw" value="HTTPS :443 / WebSocket" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#147EBA;strokeWidth=2;fontColor=#147EBA;fontSize=9;" edge="1" source="user" target="igw" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- IGW → FastAPI (TCP 8080) -->
+    <mxCell id="conn-igw-fastapi" value="TCP 8080" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=9;" edge="1" source="igw" target="fastapi" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Postgres -->
+    <mxCell id="conn-fa-pg" value="SQL async :5432" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#2E73B8;strokeWidth=1;fontColor=#2E73B8;fontSize=9;" edge="1" source="fastapi" target="postgres" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Redis -->
+    <mxCell id="conn-fa-redis" value="Cache :6379" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#C7131F;strokeWidth=1;fontColor=#C7131F;fontSize=9;" edge="1" source="fastapi" target="redis" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Cosdata HTTP -->
+    <mxCell id="conn-fa-cosdata-http" value="RAG HTTP :8443" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#8C4FFF;strokeWidth=1;fontColor=#8C4FFF;fontSize=9;" edge="1" source="fastapi" target="cosdata" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Cosdata gRPC -->
+    <mxCell id="conn-fa-cosdata-grpc" value="RAG gRPC :50051" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#8C4FFF;strokeWidth=1;fontColor=#8C4FFF;fontSize=9;dashed=1;" edge="1" source="fastapi" target="cosdata" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="774" y="700" />
+          <mxPoint x="1224" y="700" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- FastAPI → Ollama -->
+    <mxCell id="conn-fa-ollama" value="LLM inference :11434" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#01A88D;strokeWidth=1;fontColor=#01A88D;fontSize=9;" edge="1" source="fastapi" target="ollama" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Whisper -->
+    <mxCell id="conn-fa-whisper" value="STT :8001" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#01A88D;strokeWidth=1;fontColor=#01A88D;fontSize=9;" edge="1" source="fastapi" target="whisper" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → XTTS -->
+    <mxCell id="conn-fa-xtts" value="TTS :8020" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#01A88D;strokeWidth=1;fontColor=#01A88D;fontSize=9;" edge="1" source="fastapi" target="xtts" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Bhashini (external) -->
+    <mxCell id="conn-fa-bhashini" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#E7157B;strokeWidth=1;fontColor=#E7157B;fontSize=9;dashed=1;" edge="1" source="fastapi" target="bhashini" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → OpenWeather (external) -->
+    <mxCell id="conn-fa-weather" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#E7157B;strokeWidth=1;fontColor=#E7157B;fontSize=9;dashed=1;" edge="1" source="fastapi" target="openweather" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Mapbox (external) -->
+    <mxCell id="conn-fa-mapbox" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#E7157B;strokeWidth=1;fontColor=#E7157B;fontSize=9;dashed=1;" edge="1" source="fastapi" target="mapbox" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → OpenAI/OpenRouter (external) -->
+    <mxCell id="conn-fa-llm" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#E7157B;strokeWidth=1;fontColor=#E7157B;fontSize=9;dashed=1;" edge="1" source="fastapi" target="llm" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → Azure (external) -->
+    <mxCell id="conn-fa-azure" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#E7157B;strokeWidth=1;fontColor=#E7157B;fontSize=9;dashed=1;" edge="1" source="fastapi" target="azure" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- FastAPI → NMIS (scraper, dashed) -->
+    <mxCell id="conn-fa-nmis" value="Scraper / cron" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#888888;strokeWidth=1;fontColor=#888888;fontSize=9;dashed=1;" edge="1" source="fastapi" target="nmis" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- LEGEND                                                         -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="legend" value="Legend" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="40" y="570" width="320" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg1" value="━━ Solid: internal traffic" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="598" width="200" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="leg2" value="- - Dashed: external / optional traffic" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="50" y="618" width="260" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="leg3" value="Blue border: VPC / Subnet boundary" style="text;html=1;strokeColor=none;fillColor=#E6F3FB;align=left;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="50" y="648" width="260" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="leg4" value="Orange border: Security Group / EC2" style="text;html=1;strokeColor=none;fillColor=#FFE6CC;align=left;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="50" y="672" width="260" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="leg5" value="Teal border: Docker bridge network" style="text;html=1;strokeColor=none;fillColor=#D5E8F5;align=left;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="50" y="696" width="260" height="20" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

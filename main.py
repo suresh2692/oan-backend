@@ -41,12 +41,24 @@ async def lifespan(app: FastAPI):
     # Initialize database connection pool
     logger.info("✅ Database engine initialized")
 
+    # Initialize telemetry DB pool
+    from app.tasks.telemetry import init_telemetry_pool, close_telemetry_pool
+    if settings.telemetry_db_url:
+        try:
+            await init_telemetry_pool(settings.telemetry_db_url)
+            logger.info("✅ Telemetry DB connected")
+        except Exception as e:
+            logger.error(f"❌ Telemetry DB connection failed: {e}")
+
     logger.info("✅ Application startup complete")
 
     yield
 
     # Shutdown
     logger.info("Shutting down MahaVistaar AI API...")
+
+    # Close telemetry pool
+    await close_telemetry_pool()
 
     # Close database connections
     await close_db()

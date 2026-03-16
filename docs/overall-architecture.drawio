@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="2074" dy="1156" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2800" pageHeight="1600" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- TITLE                                                          -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="title" value="OAN Platform — Cross-Account Architecture&#xa;Telemetry flows from Playground (us-east-1) to Protean (ap-south-1) via IP-whitelisted PostgreSQL" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="600" y="15" width="1200" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- INTERNET / EXTERNAL SERVICES ZONE (left side)                 -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="internet-zone" value="Internet / External Services" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_internet_alt2;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFFFFF;strokeColor=#147EBA;dashed=1;fontSize=13;fontStyle=1;fontColor=#147EBA;" vertex="1" parent="1">
+      <mxGeometry x="40" y="80" width="250" height="520" as="geometry" />
+    </mxCell>
+
+    <!-- Client User -->
+    <mxCell id="user" value="" style="shape=mxgraph.aws4.user;fillColor=#232F3E;strokeColor=none;fontColor=#ffffff;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="130" y="120" width="50" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="user-label" value="Client&#xa;(Web / Mobile)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="100" y="170" width="110" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- OpenRouter LLM -->
+    <mxCell id="llm" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker_model;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="70" y="230" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="llm-label" value="OpenRouter&#xa;(LLM)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="50" y="270" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- OpenWeatherMap -->
+    <mxCell id="openweather" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="180" y="230" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="openweather-label" value="OpenWeather&#xa;Map" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="160" y="270" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- Nominatim -->
+    <mxCell id="nominatim" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.location_service;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="70" y="320" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="nominatim-label" value="Nominatim&#xa;(Geocoding)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="50" y="360" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- NMIS Market API -->
+    <mxCell id="nmis" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="180" y="320" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="nmis-label" value="NMIS API&#xa;(Market prices)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="155" y="360" width="90" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- Azure Speech -->
+    <mxCell id="azure" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.transcribe;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="70" y="410" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="azure-label" value="Azure Speech&#xa;(STT/TTS)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="50" y="450" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- Bhashini -->
+    <mxCell id="bhashini" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.translate;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="180" y="410" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="bhashini-label" value="Bhashini&#xa;(MeitY)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="160" y="450" width="80" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- Gemini -->
+    <mxCell id="gemini" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker;labelBackgroundColor=#ffffff;sketch=0;fontStyle=0;fontSize=10;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="125" y="500" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="gemini-label" value="Google Gemini&#xa;(Moderation/Tools)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="95" y="540" width="100" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- ACCOUNT 1: suresh-protean-playground (641820721713) us-east-1  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="account1" value="AWS Account: suresh-protean-playground · 641820721713 · us-east-1 (N. Virginia)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#F2F7FC;strokeColor=#232F3E;dashed=0;fontSize=12;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="330" y="80" width="920" height="900" as="geometry" />
+    </mxCell>
+
+    <!-- VPC -->
+    <mxCell id="vpc1" value="VPC · vpc-00e2458058119ccf8" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E6F3FB;strokeColor=#147EBA;dashed=0;fontSize=11;fontStyle=1;fontColor=#147EBA;" vertex="1" parent="1">
+      <mxGeometry x="360" y="130" width="870" height="830" as="geometry" />
+    </mxCell>
+
+    <!-- Public Subnet -->
+    <mxCell id="subnet1" value="Public Subnet · subnet-0767ea5f418f3918a · us-east-1a" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_public_subnet;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#D5E8D4;strokeColor=#67AB9F;dashed=0;fontSize=10;fontStyle=1;fontColor=#2D7600;" vertex="1" parent="1">
+      <mxGeometry x="390" y="180" width="820" height="760" as="geometry" />
+    </mxCell>
+
+    <!-- Security Group -->
+    <mxCell id="sg1" value="Security Group: oan-sg · sg-0483ad42574d065bb&#xa;Inbound: TCP 22, 80, 443 from 0.0.0.0/0 | Outbound: All" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFE6CC;strokeColor=#FF8000;dashed=1;fontSize=9;fontStyle=1;fontColor=#FF8000;" vertex="1" parent="1">
+      <mxGeometry x="410" y="240" width="780" height="680" as="geometry" />
+    </mxCell>
+
+    <!-- EC2 Instance -->
+    <mxCell id="ec2-1" value="EC2: i-0b48a59f274eea5bf · m7i-flex.large&#xa;Elastic IP: 98.90.156.237 (98.90.156.237.nip.io)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_ec2_instance_contents;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFF3E0;strokeColor=#FF8000;dashed=0;fontSize=10;fontStyle=1;fontColor=#CC5500;" vertex="1" parent="1">
+      <mxGeometry x="430" y="310" width="740" height="590" as="geometry" />
+    </mxCell>
+
+    <!-- Docker Network -->
+    <mxCell id="docker1" value="Docker Bridge Network: oan_network" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_elastic_container_service_contents;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#D5E8F5;strokeColor=#0E6EB8;dashed=1;fontSize=10;fontStyle=1;fontColor=#0E6EB8;" vertex="1" parent="1">
+      <mxGeometry x="450" y="370" width="700" height="510" as="geometry" />
+    </mxCell>
+
+    <!-- ── Frontend (Nginx + React) ── -->
+    <mxCell id="frontend" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#8C4FFF;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="480" y="410" width="44" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="frontend-label" value="oan_frontend&#xa;Nginx + React&#xa;80→8081, 443→8443&#xa;Let's Encrypt SSL" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="455" y="454" width="100" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- ── Backend (FastAPI) ── -->
+    <mxCell id="backend" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#E7157B;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="650" y="410" width="44" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="backend-label" value="oan_backend&#xa;FastAPI + Uvicorn&#xa;Port: 8000&#xa;(8 workers)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="622" y="454" width="100" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- ── PostgreSQL (local app DB) ── -->
+    <mxCell id="pg-local" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#2E73B8;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="540" y="560" width="44" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="pg-local-label" value="oan_postgres&#xa;PostgreSQL 15&#xa;load_agri DB&#xa;Port: 5432" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="512" y="604" width="100" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- ── Redis ── -->
+    <mxCell id="redis1" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elasticache;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#C7131F;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="700" y="560" width="44" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="redis1-label" value="oan_redis&#xa;Redis 7&#xa;Sessions / Cache&#xa;Port: 6379" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="672" y="604" width="100" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- ── Cosdata Vector DB ── -->
+    <mxCell id="cosdata1" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.opensearch_service;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#8C4FFF;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="860" y="560" width="44" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="cosdata1-label" value="oan_cosdata&#xa;Vector DB&#xa;RAG Retrieval&#xa;Port: 8443" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="832" y="604" width="100" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- ── Telemetry Module Label ── -->
+    <mxCell id="telem-module" value="Telemetry Module&#xa;(helpers/telemetry.py + app/tasks/telemetry.py)&#xa;asyncpg pool → fire-and-forget INSERT" style="text;html=1;strokeColor=#FF0000;fillColor=#FFEBEE;align=center;fontSize=9;fontStyle=1;fontColor=#CC0000;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="540" y="710" width="260" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- ── Embedding Model ── -->
+    <mxCell id="embedding" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.sagemaker_model;labelBackgroundColor=#D5E8F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#01A88D;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1020" y="560" width="44" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="embedding-label" value="Embedding Model&#xa;multilingual-e5-large&#xa;(local inference)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="992" y="604" width="100" height="45" as="geometry" />
+    </mxCell>
+
+    <!-- Internal connections: Frontend → Backend -->
+    <mxCell id="c-fe-be" value="proxy /api/" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#0E6EB8;strokeWidth=1;fontColor=#0E6EB8;fontSize=8;" edge="1" source="frontend" target="backend" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Backend → PostgreSQL -->
+    <mxCell id="c-be-pg" value="SQL :5432" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#2E73B8;strokeWidth=1;fontColor=#2E73B8;fontSize=8;" edge="1" source="backend" target="pg-local" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Backend → Redis -->
+    <mxCell id="c-be-redis" value="Cache :6379" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#C7131F;strokeWidth=1;fontColor=#C7131F;fontSize=8;" edge="1" source="backend" target="redis1" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Backend → Cosdata -->
+    <mxCell id="c-be-cos" value="RAG :8443" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#8C4FFF;strokeWidth=1;fontColor=#8C4FFF;fontSize=8;" edge="1" source="backend" target="cosdata1" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Backend → Embedding -->
+    <mxCell id="c-be-emb" value="Embed" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#01A88D;strokeWidth=1;fontColor=#01A88D;fontSize=8;" edge="1" source="backend" target="embedding" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="672" y="530" />
+          <mxPoint x="1042" y="530" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Backend → Telemetry Module -->
+    <mxCell id="c-be-telem" value="create_question_event()&#xa;create_error_event()" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#CC0000;strokeWidth=2;fontColor=#CC0000;fontSize=8;dashed=1;" edge="1" source="backend" target="telem-module" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- User → Frontend (HTTPS) -->
+    <mxCell id="c-user-fe" value="HTTPS :443&#xa;WebSocket" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#147EBA;strokeWidth=2;fontColor=#147EBA;fontSize=9;" edge="1" source="user" target="frontend" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Backend → External APIs (grouped) -->
+    <mxCell id="c-be-llm" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#E7157B;strokeWidth=1;fontColor=#E7157B;fontSize=8;dashed=1;" edge="1" source="backend" target="llm" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="420" y="432" />
+          <mxPoint x="420" y="250" />
+          <mxPoint x="90" y="250" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- ACCOUNT 2: suresh-protean (379220350808) ap-south-1            -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="account2" value="AWS Account: suresh-protean · 379220350808 · ap-south-1 (Mumbai)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_account;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFF8F0;strokeColor=#232F3E;dashed=0;fontSize=12;fontStyle=1;fontColor=#232F3E;" vertex="1" parent="1">
+      <mxGeometry x="1310" y="80" width="880" height="1050" as="geometry" />
+    </mxCell>
+
+    <!-- ── Telemetry VPC ── -->
+    <mxCell id="vpc2-telem" value="Telemetry Infrastructure · EC2 Public IP: 13.232.206.114" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#E6F3FB;strokeColor=#147EBA;dashed=0;fontSize=11;fontStyle=1;fontColor=#147EBA;" vertex="1" parent="1">
+      <mxGeometry x="1340" y="130" width="530" height="560" as="geometry" />
+    </mxCell>
+
+    <!-- Telemetry SG -->
+    <mxCell id="sg-telem" value="Security Group&#xa;Inbound: TCP 5432 from 98.90.156.237 (IP whitelist)&#xa;Inbound: TCP 3000 from 0.0.0.0/0&#xa;Inbound: TCP 80/443 (Dashboard)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFE6CC;strokeColor=#FF8000;dashed=1;fontSize=9;fontStyle=1;fontColor=#FF8000;" vertex="1" parent="1">
+      <mxGeometry x="1360" y="210" width="490" height="460" as="geometry" />
+    </mxCell>
+
+    <!-- Telemetry EC2 -->
+    <mxCell id="ec2-telem" value="EC2 (Telemetry Server)&#xa;IP: 13.232.206.114" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.75]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_ec2_instance_contents;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#FFF3E0;strokeColor=#FF8000;dashed=0;fontSize=10;fontStyle=1;fontColor=#CC5500;" vertex="1" parent="1">
+      <mxGeometry x="1380" y="290" width="450" height="360" as="geometry" />
+    </mxCell>
+
+    <!-- ── PostgreSQL (Telemetry DB) ── -->
+    <mxCell id="pg-telem" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;labelBackgroundColor=#FFF3E0;sketch=0;fontStyle=0;fontSize=9;fillColor=#2E73B8;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1430" y="340" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="pg-telem-label" value="PostgreSQL 15&#xa;telemetry DB&#xa;Port: 5432" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1400" y="388" width="110" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- winston_logs table detail -->
+    <mxCell id="winston-box" value="winston_logs table&#xa;─────────────────&#xa;id | level | message (JSON)&#xa;timestamp | sync_status&#xa;&#xa;sync_status=0 → unprocessed&#xa;sync_status=1 → processed" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=15;fillColor=#FFF9C4;strokeColor=#F9A825;align=left;fontSize=9;fontFamily=Courier New;spacingLeft=8;" vertex="1" parent="1">
+      <mxGeometry x="1400" y="440" width="200" height="120" as="geometry" />
+    </mxCell>
+
+    <!-- ── Telemetry Processor API ── -->
+    <mxCell id="processor" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;labelBackgroundColor=#FFF3E0;sketch=0;fontStyle=0;fontSize=9;fillColor=#ED7100;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1660" y="340" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="processor-label" value="Telemetry Processor&#xa;Node.js API :3000&#xa;Polls every 5 min&#xa;3 event_processors" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1625" y="388" width="120" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- Processor reads winston_logs -->
+    <mxCell id="c-proc-winston" value="SELECT WHERE&#xa;sync_status=0" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#F9A825;strokeWidth=1;fontColor=#F9A825;fontSize=8;" edge="1" source="processor" target="pg-telem" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ── Processed Tables ── -->
+    <mxCell id="questions-table" value="questions&#xa;table" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#DCEDC8;strokeColor=#689F38;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1630" y="480" width="70" height="50" as="geometry" />
+    </mxCell>
+
+    <mxCell id="errors-table" value="errordetails&#xa;table" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#FFCDD2;strokeColor=#E53935;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1710" y="480" width="70" height="50" as="geometry" />
+    </mxCell>
+
+    <mxCell id="feedback-table" value="feedback&#xa;table" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=8;fillColor=#E1BEE7;strokeColor=#8E24AA;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1790" y="480" width="70" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Processor → tables -->
+    <mxCell id="c-proc-q" value="questionsDetails" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#689F38;strokeWidth=1;fontColor=#689F38;fontSize=7;" edge="1" source="processor" target="questions-table" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="c-proc-e" value="errorDetails" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#E53935;strokeWidth=1;fontColor=#E53935;fontSize=7;" edge="1" source="processor" target="errors-table" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="c-proc-f" value="feedbackDetails" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#8E24AA;strokeWidth=1;fontColor=#8E24AA;fontSize=7;" edge="1" source="processor" target="feedback-table" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ── MAHA Vistaar Insights Dashboard ── -->
+    <mxCell id="dashboard" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.quicksight;labelBackgroundColor=#FFF3E0;sketch=0;fontStyle=0;fontSize=9;fillColor=#8C4FFF;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1760" y="340" width="48" height="48" as="geometry" />
+    </mxCell>
+    <mxCell id="dashboard-label" value="MAHA Vistaar&#xa;Insights Dashboard&#xa;(React frontend)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1730" y="388" width="110" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- Dashboard reads processed tables -->
+    <mxCell id="c-dash-tables" value="reads" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#8C4FFF;strokeWidth=1;fontColor=#8C4FFF;fontSize=8;dashed=1;" edge="1" source="dashboard" target="questions-table" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1784" y="470" />
+          <mxPoint x="1665" y="470" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- OAN-VPC (Legacy / GPU) in protean account                     -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="vpc2-oan" value="oan-vpc · vpc-098db793507cb54ea · 10.0.0.0/16 (Legacy)" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;grStroke=1;verticalLabelPosition=top;verticalAlign=bottom;align=center;html=1;fillColor=#F5F5F5;strokeColor=#9E9E9E;dashed=1;fontSize=10;fontStyle=1;fontColor=#757575;" vertex="1" parent="1">
+      <mxGeometry x="1340" y="730" width="300" height="140" as="geometry" />
+    </mxCell>
+
+    <mxCell id="ec2-legacy" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;labelBackgroundColor=#F5F5F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#9E9E9E;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1390" y="770" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="ec2-legacy-label" value="oan-ati · i-0d903d4ccad4a2e85&#xa;g4dn.xlarge · NVIDIA T4&#xa;STATUS: STOPPED" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontColor=#9E9E9E;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="1440" y="773" width="180" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- EKS Clusters -->
+    <mxCell id="eks2" value="oan-2-cluster&#xa;vpc-01f807c7b5a94e967&#xa;NAT EIP: 13.233.13.107" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;labelBackgroundColor=#F5F5F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#9E9E9E;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1700" y="760" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="eks2-label" value="oan-2-cluster EKS&#xa;192.168.0.0/16" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;fontColor=#9E9E9E;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="1670" y="800" width="100" height="28" as="geometry" />
+    </mxCell>
+
+    <mxCell id="eks3" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eks;labelBackgroundColor=#F5F5F5;sketch=0;fontStyle=0;fontSize=9;fillColor=#9E9E9E;strokeColor=#ffffff;" vertex="1" parent="1">
+      <mxGeometry x="1830" y="760" width="40" height="40" as="geometry" />
+    </mxCell>
+    <mxCell id="eks3-label" value="oan-3-cluster EKS&#xa;192.168.0.0/16" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=9;fontColor=#9E9E9E;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="1800" y="800" width="100" height="28" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- CROSS-ACCOUNT TELEMETRY ARROW (the key flow)                  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="cross-account-arrow" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#CC0000;strokeWidth=3;fontColor=#CC0000;fontSize=10;fontStyle=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="telem-module" target="pg-telem" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="670" y="790" />
+          <mxPoint x="1300" y="790" />
+          <mxPoint x="1300" y="364" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Cross-account label box -->
+    <mxCell id="cross-label" value="CROSS-ACCOUNT TELEMETRY FLOW&#xa;─────────────────────────────&#xa;asyncpg INSERT into winston_logs&#xa;TCP 5432 over Public Internet&#xa;&#xa;Source: 98.90.156.237 (Playground EC2)&#xa;Dest:   13.232.206.114:5432 (Protean EC2)&#xa;Auth:   IP Whitelist in Security Group" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=18;fillColor=#FFEBEE;strokeColor=#CC0000;align=left;fontSize=9;fontFamily=Courier New;spacingLeft=8;fontColor=#CC0000;" vertex="1" parent="1">
+      <mxGeometry x="880" y="780" width="290" height="130" as="geometry" />
+    </mxCell>
+
+    <!-- Arrow from label to the flow line -->
+    <mxCell id="cross-label-ptr" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#CC0000;strokeWidth=1;dashed=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" target="cross-label" parent="1">
+      <mxGeometry relative="1" as="geometry">
+        <mxPoint x="1025" y="790" as="sourcePoint" />
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- TELEMETRY DATA FLOW DETAIL BOX                                -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="flow-box" value="Telemetry Pipeline (End-to-End)&#xa;═══════════════════════════════&#xa;&#xa;1. User sends chat query&#xa;   ↓&#xa;2. oan_backend processes via FastGemini&#xa;   ↓&#xa;3. create_question_event() / create_error_event()&#xa;   builds TelemetryEvent (OE_ITEM_RESPONSE)&#xa;   ↓&#xa;4. asyncio.create_task(send_telemetry(...))&#xa;   fire-and-forget, non-blocking&#xa;   ↓&#xa;5. asyncpg INSERT → winston_logs (sync_status=0)&#xa;   TCP 5432 cross-account via public IP&#xa;   ↓&#xa;6. Processor polls every 5 min&#xa;   routes by field: questionsDetails → questions&#xa;                   errorDetails → errordetails&#xa;                   feedbackDetails → feedback&#xa;   sets sync_status=1&#xa;   ↓&#xa;7. MAHA Vistaar Insights Dashboard reads tables" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;size=18;fillColor=#F3E5F5;strokeColor=#7B1FA2;align=left;fontSize=9;fontFamily=Courier New;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+      <mxGeometry x="1380" y="900" width="340" height="340" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- LEGEND                                                         -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <mxCell id="legend" value="Legend" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="40" y="640" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg1" value="━━ Blue border: VPC / Subnet" style="text;html=1;strokeColor=none;fillColor=#E6F3FB;align=left;fontSize=9;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="50" y="668" width="200" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="leg2" value="━━ Orange border: Security Group / EC2" style="text;html=1;strokeColor=none;fillColor=#FFE6CC;align=left;fontSize=9;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="50" y="690" width="220" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="leg3" value="━━ Teal border: Docker network" style="text;html=1;strokeColor=none;fillColor=#D5E8F5;align=left;fontSize=9;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="50" y="712" width="200" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="leg4" value="━━ Red: Telemetry data flow" style="text;html=1;strokeColor=none;fillColor=#FFEBEE;align=left;fontSize=9;rounded=1;fontColor=#CC0000;" vertex="1" parent="1">
+      <mxGeometry x="50" y="734" width="200" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="leg5" value="━━ Grey: Legacy / stopped resources" style="text;html=1;strokeColor=none;fillColor=#F5F5F5;align=left;fontSize=9;rounded=1;fontColor=#9E9E9E;" vertex="1" parent="1">
+      <mxGeometry x="50" y="756" width="220" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="leg6" value="- - Dashed: External API calls" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;" vertex="1" parent="1">
+      <mxGeometry x="50" y="778" width="200" height="18" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

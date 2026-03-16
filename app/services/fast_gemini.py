@@ -210,6 +210,11 @@ class FastGeminiService:
         first_token_recorded = False
         tool_round = 0
 
+        # Initialize token counters
+        metrics['prompt_tokens'] = 0
+        metrics['completion_tokens'] = 0
+        metrics['total_tokens'] = 0
+
         try:
             while tool_round < MAX_TOOL_ROUNDS:
                 tool_round += 1
@@ -223,9 +228,16 @@ class FastGeminiService:
                     tools=OPENAI_TOOLS,
                     temperature=0.2,
                     stream=True,
+                    stream_options={"include_usage": True},
                 )
 
                 async for chunk in stream:
+                    # Capture token usage (often arrives in final chunk with empty choices)
+                    if hasattr(chunk, 'usage') and chunk.usage:
+                        metrics['prompt_tokens'] += getattr(chunk.usage, 'prompt_tokens', 0) or 0
+                        metrics['completion_tokens'] += getattr(chunk.usage, 'completion_tokens', 0) or 0
+                        metrics['total_tokens'] += getattr(chunk.usage, 'total_tokens', 0) or 0
+
                     if not chunk.choices:
                         continue
                     delta = chunk.choices[0].delta

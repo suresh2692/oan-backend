@@ -4,12 +4,11 @@ Production-Ready Transcription Provider
 
 import asyncio
 import base64
+import os
 from typing import Optional
 from abc import ABC, abstractmethod
 from helpers.utils import get_logger
 from app.config import settings
-import azure.cognitiveservices.speech as speechsdk
-
 logger = get_logger(__name__)
 
 
@@ -69,6 +68,9 @@ class AzureTranscriptionProvider(TranscriptionProvider):
             region: Azure region (e.g., 'eastus', 'westus')
             session_id: Optional session ID for tracking
         """
+        import azure.cognitiveservices.speech as speechsdk
+        self._speechsdk = speechsdk
+
         self.subscription_key = subscription_key or settings.azure_foundary_api_key
         self.region = region or settings.azure_foundary_region
 
@@ -153,6 +155,7 @@ class AzureTranscriptionProvider(TranscriptionProvider):
         Raises:
             TranscriptionException: If transcription fails
         """
+        speechsdk = self._speechsdk
         stream = None
         audio_config = None
         speech_recognizer = None
@@ -347,6 +350,47 @@ class AzureTranscriptionProvider(TranscriptionProvider):
             return "en-US"
 
 
+class FasterWhisperTranscriptionProvider(TranscriptionProvider):
+    """Transcription using faster-whisper-server (OpenAI-compatible /v1/audio/transcriptions)."""
+
+    def __init__(self, base_url: str = None):
+        import httpx  # noqa: F401 — ensure httpx is available
+        self.base_url = (base_url or os.getenv("FASTER_WHISPER_URL", "http://localhost:8000")).rstrip('/')
+        logger.info(f"✅ FasterWhisper Transcription Provider initialized: {self.base_url}")
+
+    def validate_audio(self, audio_content: str) -> bytes:
+        if not audio_content:
+            raise InvalidAudioException("Audio content is empty")
+        try:
+            audio_bytes = base64.b64decode(audio_content)
+            if len(audio_bytes) > 50 * 1024 * 1024:
+                raise InvalidAudioException("Audio too large (max 50MB)")
+            if len(audio_bytes) < 100:
+                raise InvalidAudioException("Audio data too short")
+            return audio_bytes
+        except base64.binascii.Error as e:
+            raise InvalidAudioException(f"Invalid base64 audio data: {e}")
+
+    async def transcribe(self, audio_content: str, lang: str = "en") -> str:
+        import httpx
+        audio_bytes = self.validate_audio(audio_content)
+        whisper_lang = lang.split("-")[0]
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                resp = await client.post(
+                    f"{self.base_url}/v1/audio/transcriptions",
+                    files={"file": ("audio.wav", audio_bytes, "audio/wav")},
+                    data={"model": os.getenv("FASTER_WHISPER_MODEL", "Systran/faster-whisper-medium"),
+                          "language": whisper_lang}
+                )
+                resp.raise_for_status()
+                text = resp.json().get("text", "").strip()
+                logger.info(f"Transcription (faster-whisper): '{text[:50]}'")
+                return text
+        except Exception as e:
+            raise TranscriptionException(str(e))
+
+
 # Singleton instance - initialized once at startup
 _transcription_provider: Optional[TranscriptionProvider] = None
 
@@ -360,5 +404,9 @@ def get_transcription_provider() -> TranscriptionProvider:
     """
     global _transcription_provider
     if _transcription_provider is None:
-        _transcription_provider = AzureTranscriptionProvider()
+        stt_provider = os.getenv("STT_PROVIDER", "azure").lower()
+        if stt_provider == "faster_whisper":
+            _transcription_provider = FasterWhisperTranscriptionProvider()
+        else:
+            _transcription_provider = AzureTranscriptionProvider()
     return _transcription_provider

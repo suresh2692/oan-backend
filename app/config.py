@@ -66,6 +66,7 @@ class Settings(BaseSettings):
 
     # External Service URLs
     telemetry_api_url: str = "https://vistaar.kenpath.ai/observability-service/action/data/v3/telemetry"
+    telemetry_db_url: Optional[str] = os.getenv("TELEMETRY_DB_URL")
     bhashini_api_url: str = ""
     ollama_endpoint_url: Optional[str] = None
     marqo_endpoint_url: Optional[str] = None
@@ -79,7 +80,6 @@ class Settings(BaseSettings):
     bhashini_api_key: str = ""
     eleven_labs_api_key: str = ""
     inference_api_key: Optional[str] = None
-    gemini_api_key: Optional[str] = None
     mapbox_api_token: Optional[str] = None
 
     # AWS Configuration
@@ -107,11 +107,6 @@ class Settings(BaseSettings):
 
     # Embedding Configuration (for Cosdata - uses sentence-transformers locally)
     embedding_model_name: str = os.getenv("EMBEDDING_MODEL_NAME", "intfloat/multilingual-e5-large")
-
-    # OpenTelemetry / SigNoz Configuration
-    otel_service_name: str = os.getenv("OTEL_SERVICE_NAME", "oan-ai-api")
-    otel_exporter_otlp_endpoint: str = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318")
-    otel_enabled: bool = os.getenv("OTEL_ENABLED", "true").lower() == "true"
 
     class Config:
         env_file = ".env"

@@ -195,6 +195,10 @@ async def get_livestock_price_in_marketplace(
         for price_row in price_data_list:
             breed_key = price_row.breed_name or "Default"
 
+            # Results are ordered DESC by date — skip older rows for same breed
+            if breed_key in price_data_breeds:
+                continue
+
             # Build variations info from meta_data
             variations_info = ""
             if price_row.meta_data and price_row.meta_data.get("variations"):
@@ -539,6 +543,10 @@ async def get_livestock_price_quick(
         price_data_breeds = {}
         for price_row in price_data_list:
             breed_key = price_row.breed_name or "Default"
+
+            # Results are ordered DESC by date — skip older rows for same breed
+            if breed_key in price_data_breeds:
+                continue
 
             # Build variations info from meta_data
             variations_info = ""

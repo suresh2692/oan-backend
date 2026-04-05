@@ -1,9 +1,11 @@
 from typing import AsyncGenerator
+import asyncio
 import json
 import time
 import os
 from agents.agrinet import agrinet_agent
 from app.services.moderation_classifier import moderation_classifier
+from app.services.pii_masker import pii_masker
 from helpers.utils import get_logger
 from app.utils import (
     update_message_history,
@@ -16,6 +18,8 @@ from agents.deps import FarmerContext
 from helpers.utils import get_logger, get_prompt, get_today_date_str
 from pydantic_ai import UsageLimits
 from app.services.fast_gemini import FastGeminiService, FastModerationService
+from helpers.telemetry import create_question_event, create_error_event, TelemetryRequest
+from app.tasks.telemetry import send_telemetry
 load_dotenv()
 
 logger = get_logger(__name__)
@@ -31,10 +35,13 @@ async def stream_chat_messages(
     """Async generator for streaming chat messages."""
     # ⏱️ START TIMING
     pipeline_start = time.perf_counter()
-    
+
     # Generate a unique content ID for this query
     content_id = f"query_{session_id}_{len(history)//2 + 1}"
-    
+
+    # Mask PII before it enters the pipeline
+    query = pii_masker.mask(query)
+
     # ⏱️ STAGE 1: Context preparation
     stage_start = time.perf_counter()
     deps = FarmerContext(
@@ -73,6 +80,16 @@ async def stream_chat_messages(
                         "reason": pre_mod_result.reason
                     }
                 }
+                try:
+                    event = create_error_event(
+                        error_text=f"Moderation blocked: {pre_mod_result.label} - {pre_mod_result.reason}",
+                        session_id=session_id,
+                        uid=user_id,
+                    )
+                    telemetry_data = TelemetryRequest(events=[event]).model_dump()
+                    asyncio.create_task(send_telemetry(telemetry_data))
+                except Exception as e:
+                    logger.error(f"Telemetry event creation failed: {e}")
                 yield json.dumps(response_data)
                 return
             
@@ -208,6 +225,7 @@ async def stream_chat_messages(
             f"      🛠️  Tool Calls:          {tool_count} calls",
             f"      ⚙️  Tool Processing:     {total_tool_time:>8.2f} ms",
             f"      ⚖️  Moderation:          {mod_display}",
+            f"      🔢 Tokens (in/out/total): {metrics.get('prompt_tokens', 0)}/{metrics.get('completion_tokens', 0)}/{metrics.get('total_tokens', 0)}",
             f"",
             f"   🔊 TTS Synthesis:         {'N/A':>8}",
             f"",
@@ -228,10 +246,26 @@ async def stream_chat_messages(
             "tool_processing": round(total_tool_time, 2),
             "moderation": round(moderation_time, 2) if enable_moderation else "Disabled",
             "tts_synthesis": "N/A",
-            "total_e2e_latency": round(e2e_total, 2)
+            "total_e2e_latency": round(e2e_total, 2),
+            "prompt_tokens": metrics.get('prompt_tokens', 0),
+            "completion_tokens": metrics.get('completion_tokens', 0),
+            "total_tokens": metrics.get('total_tokens', 0),
         }
             
     except Exception as e:
         logger.error(f"Error generating metrics table: {e}")
+
+    # Fire-and-forget telemetry for successful chat response
+    try:
+        event = create_question_event(
+            question_text=query,
+            answer_text=full_text,
+            session_id=session_id,
+            uid=user_id,
+        )
+        telemetry_data = TelemetryRequest(events=[event]).model_dump()
+        asyncio.create_task(send_telemetry(telemetry_data))
+    except Exception as e:
+        logger.error(f"Telemetry event creation failed: {e}")
 
     yield json.dumps(response_data)

@@ -6,6 +6,7 @@ from helpers.utils import get_logger
 from app.utils import get_message_history
 from app.tasks.suggestions import create_suggestions
 from app.services.chat import stream_chat_messages
+from app.services.pii_masker import pii_masker
 from app.models.requests import ChatRequest
 
 logger = get_logger(__name__)
@@ -19,7 +20,7 @@ async def chat(request: ChatRequest, background_tasks: BackgroundTasks):
     
     logger.info(
         f"Chat request received - session_id: {session_id}, user_id: {request.user_id}, "
-        f"source_lang: {request.source_lang}, target_lang: {request.target_lang}, query: {request.query}"
+        f"source_lang: {request.source_lang}, target_lang: {request.target_lang}, query: {pii_masker.mask(request.query)}"
     )
     
     # Get the message history

@@ -1,3 +1,6 @@
+import json
+import re
+
 from app.core.cache import cache
 from helpers.utils import get_logger
 from app.utils import get_message_history, trim_history, format_message_pairs
@@ -8,6 +11,26 @@ logger = get_logger(__name__)
 
 
 SUGGESTIONS_CACHE_TTL = 60*30 # 30 minutes
+
+
+def _parse_suggestions(text: str) -> list[str]:
+    """Parse a list of suggestions from free-form LLM text output."""
+    # Try JSON first
+    try:
+        parsed = json.loads(text)
+        if isinstance(parsed, list):
+            return [str(s) for s in parsed if s]
+    except (json.JSONDecodeError, TypeError):
+        pass
+
+    # Fall back to numbered/bulleted lines
+    lines = [
+        re.sub(r'^[\d\.\-\*\)]+\s*', '', line).strip()
+        for line in text.strip().splitlines()
+        if line.strip() and not line.strip().startswith('#')
+    ]
+    return [l for l in lines if len(l) > 5]
+
 
 async def create_suggestions(session_id: str, target_lang: str = 'mr'):
     """
@@ -26,12 +49,12 @@ async def create_suggestions(session_id: str, target_lang: str = 'mr'):
 
     message       = f"**Conversation**\n\n{message_pairs}\n\n**Based on the conversation, suggest 3-5 questions the farmer can ask in {target_lang_name}.**"
     agent_run    = await suggestions_agent.run(message)
-    suggestions = [x for x in agent_run.output]
+    suggestions = _parse_suggestions(agent_run.output)
     logger.info(f"Suggestions: {suggestions}")
     # Store suggestions in cache
     await cache.set(f"suggestions_{session_id}_{target_lang}", suggestions, ttl=SUGGESTIONS_CACHE_TTL)
     logger.info(f"Suggestions created and saved for session {session_id}")
-    
+
     return {
         "status": "success",
         "message": f"Suggestions created and saved for session {session_id}"

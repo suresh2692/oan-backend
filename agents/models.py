@@ -45,8 +45,24 @@ elif LLM_PROVIDER == 'openrouter':
             api_key=os.getenv('OPENROUTER_API_KEY'),
         ),
     )
+elif LLM_PROVIDER == 'gemini':
+    LLM_MODEL = OpenAIModel(
+        LLM_MODEL_NAME,
+        provider=OpenAIProvider(
+            base_url='https://generativelanguage.googleapis.com/v1beta/openai/',
+            api_key=os.getenv('GEMINI_API_KEY'),
+        ),
+    )
+elif LLM_PROVIDER == 'huggingface':
+    LLM_MODEL = OpenAIModel(
+        LLM_MODEL_NAME,
+        provider=OpenAIProvider(
+            base_url='https://router.huggingface.co/v1',
+            api_key=os.getenv('HF_TOKEN'),
+        ),
+    )
 else:
     raise ValueError(
         f"Invalid LLM_PROVIDER: {LLM_PROVIDER}. "
-        f"Must be one of: 'ollama', 'openai', 'vllm', 'openrouter'"
+        f"Must be one of: 'ollama', 'openai', 'vllm', 'openrouter', 'gemini', 'huggingface'"
     )

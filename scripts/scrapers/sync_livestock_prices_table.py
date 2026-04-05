@@ -228,6 +228,7 @@ async def upsert_aggregated_prices(
                 
         except Exception as e:
             logger.error(f"Error aggregating {livestock_name}: {e}")
+            await db.rollback()
             stats["skipped"] += 1
             stats["skipped_details"].append({
                 "marketplace": marketplace_name,
@@ -344,6 +345,7 @@ async def sync_livestock_prices():
 
             except Exception as e:
                 logger.error(f"Error processing {marketplace_name if 'marketplace_name' in locals() else 'unknown'}: {e}")
+                await db.rollback()
                 print()
 
         print("=" * 80)

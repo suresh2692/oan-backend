@@ -188,3 +188,10 @@ cython_debug/
 .plan/
 .doc/
 .claude
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.tfvars

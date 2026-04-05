@@ -124,7 +124,13 @@ def _make_openai_client(async_mode: bool = True):
     base_url = os.getenv("OPENAI_BASE_URL") or os.getenv("INFERENCE_ENDPOINT_URL")
     if base_url and not base_url.rstrip('/').endswith('/v1'):
         base_url = base_url.rstrip('/') + '/v1'
-    api_key = os.getenv("OPENAI_API_KEY") or os.getenv("INFERENCE_API_KEY") or "ollama"
+    provider = os.getenv("LLM_PROVIDER", "").lower()
+    if provider == "huggingface":
+        api_key = os.getenv("HF_TOKEN") or os.getenv("OPENAI_API_KEY") or os.getenv("INFERENCE_API_KEY") or "ollama"
+    elif provider == "openrouter":
+        api_key = os.getenv("OPENROUTER_API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("INFERENCE_API_KEY") or "ollama"
+    else:
+        api_key = os.getenv("OPENAI_API_KEY") or os.getenv("HF_TOKEN") or os.getenv("INFERENCE_API_KEY") or "ollama"
     if async_mode:
         return openai.AsyncOpenAI(base_url=base_url, api_key=api_key)
     return openai.OpenAI(base_url=base_url, api_key=api_key)
